@@ -19,6 +19,12 @@ module OmniAuth
       def callback_url
         options[:redirect_uri] || (full_host + script_name + callback_path)
       end
+
+      def on_callback_path?
+        return false if request.params['challenge']
+
+        on_path?(callback_path)
+      end
     end
   end
 end
